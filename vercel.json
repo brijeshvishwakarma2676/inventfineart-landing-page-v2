@@ -1,0 +1,84 @@
+{
+  "outputDirectory": "build/client",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/__spa-fallback.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/img/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about-us.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/gallery.html",
+      "destination": "/products",
+      "permanent": true
+    },
+    {
+      "source": "/services.html",
+      "destination": "/products",
+      "permanent": true
+    },
+    {
+      "source": "/sculptures.html",
+      "destination": "/sculptures",
+      "permanent": true
+    },
+    {
+      "source": "/planter.html",
+      "destination": "/designer-planters",
+      "permanent": true
+    },
+    {
+      "source": "/grc-products.html",
+      "destination": "/grc-products",
+      "permanent": true
+    },
+    {
+      "source": "/wall_murals.html",
+      "destination": "/projects?type=wall-murals",
+      "permanent": true
+    },
+    {
+      "source": "/water_fountains.html",
+      "destination": "/projects?type=water-features",
+      "permanent": true
+    },
+    {
+      "source": "/other.html",
+      "destination": "/projects",
+      "permanent": true
+    },
+    {
+      "source": "/our_client.html",
+      "destination": "/clients",
+      "permanent": true
+    }
+  ]
+}

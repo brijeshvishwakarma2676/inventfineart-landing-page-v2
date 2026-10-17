@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+
+/* Design tokens (SITE-V3-SPEC.md §3). The only place colours, fonts, sizes and radii are defined. */
+@theme {
+  --color-*: initial;
+  --color-bg: #f7f4ee;
+  --color-surface: #efeae1;
+  --color-surface-2: #e4ddd0;
+  --color-line: #d6cec0;
+  --color-ink: #1f1d1a;
+  --color-ink-muted: #5e5850;
+  --color-accent: #8a6a3f;
+  --color-accent-hover: #6f542f;
+  --color-olive: #6b6a4b;
+  --color-dark: #1f1d1a;
+  --color-cream: #f2ede4;
+  --color-whatsapp: #25d366;
+  --color-error: #a23b2a; /* form errors only (≈5.9:1 on bg) */
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-*: initial;
+  --font-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Manrope Variable', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Type scale: mobile → desktop */
+  --text-h1: clamp(2.75rem, 1.9rem + 3.6vw, 4.5rem);
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.01em;
+  --text-h2: clamp(2.125rem, 1.75rem + 1.6vw, 3rem);
+  --text-h2--line-height: 1.1;
+  --text-h3: clamp(1.5rem, 1.4rem + 0.45vw, 1.75rem);
+  --text-h3--line-height: 1.2;
+  --text-body: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
+  --text-body--line-height: 1.65;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-micro: 0.75rem;
+  --text-micro--line-height: 1.4;
+
+  --tracking-label: 0.08em;
+  --tracking-eyebrow: 0.18em;
+
+  --radius-image: 4px;
+  --radius-button: 2px;
+
+  --spacing-section: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+  --container-site: 82.5rem; /* 1320px */
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-bg font-sans text-body text-ink;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-medium text-ink;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    @apply text-current no-underline;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-white);
+  }
+  img {
+    @apply max-w-full;
+  }
+}
+
+/* Lenis (smooth scroll) recommended base styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 48rem) {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* Ken Burns for the hero slide that is showing (spec §3.5: scale ≤ 1.06) */
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+/* Hero slide progress bar */
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
