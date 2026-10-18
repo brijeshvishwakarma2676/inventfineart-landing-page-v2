@@ -26,9 +26,8 @@ To find all of them: `grep -rn PROVISIONAL app`. Launch is blocked until that co
 | 16 | FAQ answers | short general answers from known facts only | `app/data/content.js` (`faqs`) |
 
 ## Design titles
-- Only these designs have descriptive titles: 9 sculptures, 4 planters, all 15 GRC/GRL photos, and the 8 FRP picks. Those are the photos where the subject is unambiguous.
-- The remaining 67 sculptures show "Sculpture design" with their code.
-- **Ask the client for names** (and, ideally, size and material) per code. The list is in `app/data/designs.js`.
+- Every design now has a descriptive title of what its photo shows (sculptures: 9 checked by us, 67 from site-v4's photo notes, matched by code and photo). Photos of the same piece share one title.
+- These describe the photo; they are not the client's product names. **Ask the client for names** (and, ideally, size and material) per code. The list is in `app/data/designs.js`.
 
 ## Photos still needed for a polished launch
 - [ ] Designer planters: 20+ photos (4 on hand)
