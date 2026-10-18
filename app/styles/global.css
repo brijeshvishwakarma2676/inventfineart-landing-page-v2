@@ -11,6 +11,7 @@
   --color-ink-muted: #5e5850;
   --color-accent: #8a6a3f;
   --color-accent-hover: #6f542f;
+  --color-accent-light: #c9a97a; /* bronze for text and lines on dark bands (≈7.4:1 on dark) */
   --color-olive: #6b6a4b;
   --color-dark: #1f1d1a;
   --color-cream: #f2ede4;
@@ -115,6 +116,43 @@ html.lenis body {
   to {
     transform: scale(1.06);
   }
+}
+
+/* Home sketchbook (Sketchbook.jsx, ported from site-v4): line drawings that draw themselves. Every path has
+   pathLength="1", so one dash is the whole line; the undrawn offset (1.02) sits just past the start so round caps
+   leave no dot. Rubbing out waits until the drawing has faded (0.7s). Thicker strokes on phones, where it is small. */
+.sketch path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1.02;
+  transition: stroke-dashoffset 0s linear 0.7s;
+}
+@media (width >= 48rem) {
+  .sketch path {
+    stroke-width: 1.5;
+  }
+}
+.sketch[data-drawn] path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.1s var(--ease-out-soft) var(--d, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sketch path,
+  .sketch[data-drawn] path {
+    transition: none !important;
+  }
+}
+
+/* Sketchbook "paper": a faint dot grid behind the drawing */
+@utility sketch-paper {
+  background-color: rgb(242 237 228 / 0.025);
+  background-image: radial-gradient(rgb(242 237 228 / 0.13) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  background-position: 11px 11px;
 }
 
 /* Hero slide progress bar */

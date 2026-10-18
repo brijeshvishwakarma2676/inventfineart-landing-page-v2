@@ -25,6 +25,7 @@ The default Tailwind palette is switched off (`--color-*: initial`), so only the
 | `ink-muted` | `#5E5850` | Secondary text |
 | `accent` | `#8A6A3F` | Bronze: primary buttons, links |
 | `accent-hover` | `#6F542F` | Button hover |
+| `accent-light` | `#C9A97A` | Bronze for text and lines on dark bands (hero, sketchbook) |
 | `olive` | `#6B6A4B` | Second accent, used sparingly |
 | `dark` | `#1F1D1A` | Dark bands (stats, footer, CTA band) |
 | `cream` | `#F2EDE4` | Text on dark bands and on photos |

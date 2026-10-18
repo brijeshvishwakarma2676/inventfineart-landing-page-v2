@@ -1,7 +1,7 @@
-import { Img } from '../ui/Img';
+import { HoverSwap } from '../ui/HoverSwap';
 import { useLightbox } from '../ui/useLightbox';
 
-/** Masonry of project photos; each opens the full-screen viewer. */
+/** Masonry of project photos; each opens the full-screen viewer. Hover shows a second photo of the same piece. */
 export function ProjectGrid({ items, columns = 'sm:columns-2 lg:columns-3' }) {
   const { open, element } = useLightbox(items);
   return (
@@ -15,11 +15,14 @@ export function ProjectGrid({ items, columns = 'sm:columns-2 lg:columns-3' }) {
               className="group block w-full overflow-hidden rounded-image bg-surface-2 text-left"
               aria-label={`View larger: ${p.alt}`}
             >
-              <Img
-                id={p.image}
+              <HoverSwap
+                as="span"
+                image={p.image}
+                secondImage={p.secondImage}
+                views={p.views}
                 alt={p.alt}
                 sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
-                className="h-auto w-full transition-transform duration-[900ms] ease-out-soft group-hover:scale-[1.03]"
+                imgClassName="h-auto w-full"
               />
             </button>
           </li>

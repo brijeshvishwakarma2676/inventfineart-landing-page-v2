@@ -14,7 +14,7 @@ To find all of them: `grep -rn PROVISIONAL app`. Launch is blocked until that co
 | 4 | Enquiry inbox | inventfineart.mum@gmail.com | `app/data/site.js:20` |
 | 5 | WhatsApp number | +91 93232 10327 | `app/data/site.js:21` |
 | 6 | Hero headline | "Art that gives your space an identity." | `app/data/site.js:31` |
-| 7 | Hero video | none, so the 3-photo slider is used | `app/data/site.js:36` |
+| 7 | Hero video | none; the hero shows the line drawings with a photo of the real piece | `app/data/site.js` (`hero.video`) |
 | 8 | Catalogue PDF | none (`/catalogue` is not built) | `app/data/site.js:51` |
 | 9 | Sizes | Planters S/M/L/Custom; the rest "Made to your size and drawing" | `app/data/categories.js:17, 37, 59, 79, 100` |
 | 10 | Finishes | 5 names; swatches are flat token colours | `app/data/categories.js:110` |

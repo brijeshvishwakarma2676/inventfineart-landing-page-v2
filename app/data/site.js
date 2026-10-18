@@ -33,12 +33,8 @@ export const site = {
     title: 'Art that gives your space an',
     titleItalic: 'identity.',
     sub: 'Sculptures, designer planters, GRC and FRP products, designed and made in our own workshop.',
-    video: null, // PROVISIONAL – confirm with client (no hero video yet; the slider is used)
-    slides: [
-      { image: 'gallery/grc_products/1', caption: 'GRC 3D façade panels', position: '50% 55%' },
-      { image: 'gallery/other_products/11', caption: 'Curved interior installation', position: '50% 50%' },
-      { image: 'gallery/sculptures/33', caption: 'Garden sculpture', position: '50% 60%' },
-    ],
+    // The hero is the sketch hero (Hero.jsx): line drawings + the real piece. A hero video could replace it later.
+    video: null, // PROVISIONAL – confirm with client (no hero video yet)
   },
 
   // PROVISIONAL – confirm with client (spec §7 row 2). Years is computed from foundedYear.

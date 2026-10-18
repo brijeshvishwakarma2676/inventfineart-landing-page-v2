@@ -17,7 +17,20 @@ export const projectGroups = [
 ];
 
 const groupName = Object.fromEntries(projectGroups.map((g) => [g.slug, g.name]));
-const make = (group) => (image) => ({ image, group, alt: `${groupName[group]} by Invent Fine Art` });
+// Two photos of the same fountain: hovering one shows the other (checked by eye).
+const SAME_PIECE = [
+  ['water_fountains/16', 'water_fountains/17'], // sphere fountain
+  ['water_fountains/3', 'water_fountains/5'], // lit fountain, side and top
+].map((g) => g.map((id) => `gallery/${id}`));
+const secondImageOf = Object.fromEntries(SAME_PIECE.flatMap((g) => g.map((id, i) => [id, g[(i + 1) % g.length]])));
+
+const make = (group) => (image) => ({
+  image,
+  group,
+  secondImage: secondImageOf[image],
+  views: secondImageOf[image] ? 2 : 1,
+  alt: `${groupName[group]} by Invent Fine Art`,
+});
 
 export const projects = [
   ...fromFolder('wall_murals', MURALS_EXCLUDE).map(make('wall-murals')),

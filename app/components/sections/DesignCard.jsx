@@ -1,9 +1,10 @@
-import { Img } from '../ui/Img';
+import { HoverSwap } from '../ui/HoverSwap';
 import { useEnquiry } from '../../enquiry/EnquiryContext';
 
 /**
  * One design: 4:5 image, code and title, and Enquire (spec §3.4).
  * With a mouse, Enquire slides up over the image on hover; on touch screens it is always visible below.
+ * When there is a second photo of the same piece (`secondImage`), hovering changes to it.
  */
 export function DesignCard({ design, sizes = '(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 80vw', headingLevel = 3, className = '', onOpen }) {
   const { open } = useEnquiry();
@@ -12,13 +13,14 @@ export function DesignCard({ design, sizes = '(min-width: 1024px) 30vw, (min-wid
 
   return (
     <article className={`group flex flex-col gap-4 ${className}`}>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-image bg-surface-2">
-        <Img
-          id={design.image}
-          alt={design.alt}
-          sizes={sizes}
-          className="size-full object-cover transition-transform duration-[900ms] ease-out-soft group-hover:scale-105"
-        />
+      <HoverSwap
+        image={design.image}
+        secondImage={design.secondImage}
+        views={design.views}
+        alt={design.alt}
+        sizes={sizes}
+        className="aspect-[4/5] rounded-image bg-surface-2"
+      >
         {onOpen && (
           <button
             type="button"
@@ -38,7 +40,7 @@ export function DesignCard({ design, sizes = '(min-width: 1024px) 30vw, (min-wid
         >
           Enquire about this design
         </button>
-      </div>
+      </HoverSwap>
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <p className="text-micro font-semibold uppercase tracking-label text-ink-muted">{design.code}</p>

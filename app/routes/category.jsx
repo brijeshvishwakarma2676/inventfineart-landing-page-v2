@@ -17,13 +17,18 @@ import { faqs } from '../data/content';
 import { breadcrumbs } from '../data/seo';
 import { SITE_URL } from '../data/site';
 import { useEnquiry } from '../enquiry/EnquiryContext';
+import { useHydrated } from '../motion/useReducedMotion';
 
 export const handle = { heroHeader: true };
 
 // One template for all five product lines (spec §4.2).
 // The application filter (§4.2-3) waits until designs are tagged by use (BACKLOG.md).
 export default function Category() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
+  // The design named in the URL hash (e.g. #IFA-SC-012 from the Home sketchbook) is outlined. Read after
+  // hydration: the prerendered HTML has no hash, and client navigation does not update CSS :target.
+  const hydrated = useHydrated();
+  const targetCode = hydrated ? decodeURIComponent(hash.slice(1)) : '';
   const cat = categoryBySlug[pathname.split('/')[1]];
   const items = designsFor(cat.slug);
   const related = relatedProjects(cat.slug);
@@ -110,7 +115,15 @@ export default function Category() {
           </div>
           <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((d, i) => (
-              <div key={d.code} data-reveal="up">
+              // id = design code, so links like /sculptures#IFA-SC-012 (from the Home sketchbook) land on the card
+              <div
+                key={d.code}
+                id={d.code}
+                data-reveal="up"
+                className={`scroll-mt-32 rounded-image transition-[outline-color] duration-500 ${
+                  targetCode === d.code ? 'outline-2 outline-offset-8 outline-accent' : ''
+                }`}
+              >
                 <DesignCard design={d} onOpen={() => openPhoto(i)} />
               </div>
             ))}

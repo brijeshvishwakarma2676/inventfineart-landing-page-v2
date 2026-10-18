@@ -9,6 +9,7 @@ import { StatsBand } from '../components/sections/StatsBand';
 import { Applications } from '../components/sections/Applications';
 import { MaterialsFinishes } from '../components/sections/MaterialsFinishes';
 import { Process } from '../components/sections/Process';
+import { Sketchbook } from '../components/sections/Sketchbook';
 import { ProjectGrid } from '../components/sections/ProjectGrid';
 import { ClientsWall } from '../components/sections/ClientsWall';
 import { Testimonials } from '../components/sections/Testimonials';
@@ -19,7 +20,7 @@ import { organization } from '../data/seo';
 
 export const handle = { heroHeader: true };
 
-// Home: the eleven sections of spec §4.1, in order.
+// Home: the eleven sections of spec §4.1, in order, plus the sketchbook band before How we work.
 export default function Home() {
   return (
     <>
@@ -111,6 +112,9 @@ export default function Home() {
           <MaterialsFinishes />
         </Container>
       </Section>
+
+      {/* 6b: sketchbook (ported from site-v4); leads into How we work, which starts with your concept */}
+      <Sketchbook />
 
       {/* 7 */}
       <Section aria-labelledby="process-title">

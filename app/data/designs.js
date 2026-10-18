@@ -63,6 +63,35 @@ const FRP_PICKS = {
   14: 'Anchor and eagle landmark',
 };
 
+// Photos that show the same piece from another angle or stage (checked by eye; titles from site-v4's photo notes).
+// Hovering a card shows the next photo of its group. Not grouped: sculptures/53 (a larger, different Liberty),
+// 54 (Gandhi in clay, another stage), and anything only similar in style.
+const SAME_PIECE = [
+  ['sculptures/13', 'sculptures/14'], // equestrian statue
+  ['sculptures/19', 'sculptures/20'], // giant garden chess set
+  ['sculptures/24', 'sculptures/25'], // birds by the pool
+  ['sculptures/32', 'sculptures/33'], // couple on a boulder
+  ['sculptures/35', 'sculptures/36'], // rhinoceros in metal mesh
+  ['sculptures/37', 'sculptures/39'], // Statue of Liberty replica
+  ['sculptures/40', 'sculptures/41'], // Gandhi statue
+  ['sculptures/44', 'sculptures/45'], // figure with kites
+  ['sculptures/46', 'sculptures/47', 'sculptures/48', 'sculptures/49'], // figure at the spinning wheel
+  ['sculptures/57', 'sculptures/58', 'sculptures/59'], // leaning figure with a silver mane
+  ['sculptures/63', 'sculptures/64'], // spinning wheel, large
+  ['sculptures/67', 'sculptures/68', 'sculptures/69'], // portrait statue, clay model
+  ['sculptures/70', 'sculptures/71'], // portrait statue
+  ['sculptures/78', 'sculptures/80'], // lion of machine parts
+  ['grc_products/1', 'grc_products/2', 'grc_products/3'], // 3D façade panels
+  ['grc_products/7', 'grc_products/8', 'grc_products/9'], // façade cladding
+  ['wall_murals/12', 'wall_murals/13'], // jali gate and boundary screen
+  ['other_products/8', 'other_products/9'], // sculptural table
+  ['other_products/11', 'other_products/12', 'other_products/13'], // curved interior
+].map((g) => g.map((id) => `gallery/${id}`));
+export const secondImageOf = Object.fromEntries(
+  SAME_PIECE.flatMap((g) => g.map((id, i) => [id, g[(i + 1) % g.length]])),
+);
+const viewCountOf = Object.fromEntries(SAME_PIECE.flatMap((g) => g.map((id) => [id, g.length])));
+
 function build(categorySlug, ids, titles = {}) {
   const cat = categoryBySlug[categorySlug];
   return ids.map((image, i) => {
@@ -74,6 +103,8 @@ function build(categorySlug, ids, titles = {}) {
       category: categorySlug,
       title,
       image,
+      secondImage: secondImageOf[image],
+      views: viewCountOf[image] ?? 1,
       alt: `${title}, ${cat.name.toLowerCase()} by Invent Fine Art (${code})`,
     };
   });
@@ -81,7 +112,7 @@ function build(categorySlug, ids, titles = {}) {
 
 const grcAll = fromFolder('grc_products');
 
-export const designs = [
+const built = [
   ...build(
     'sculptures',
     fromFolder('sculptures').filter((id) => !SCULPTURE_EXCLUDE.includes(num(id))),
@@ -100,6 +131,18 @@ export const designs = [
     FRP_PICKS,
   ).map((d) => ({ ...d, provisional: true })),
 ];
+
+// Photos of the same piece share one name: an untitled photo takes the title of a titled photo in its group.
+const generic = (d) => d.title === `${categoryBySlug[d.category].name.replace(/s$/, '')} design`;
+const titleByImage = Object.fromEntries(built.filter((d) => !generic(d)).map((d) => [d.image, d.title]));
+const groupTitle = (image) => SAME_PIECE.find((g) => g.includes(image))?.map((id) => titleByImage[id]).find(Boolean);
+
+export const designs = built.map((d) => {
+  const shared = generic(d) && groupTitle(d.image);
+  if (!shared) return d;
+  const cat = categoryBySlug[d.category];
+  return { ...d, title: shared, alt: `${shared}, ${cat.name.toLowerCase()} by Invent Fine Art (${d.code})` };
+});
 
 export const designsFor = (slug) => designs.filter((d) => d.category === slug);
 export const designByImage = (image) => designs.find((d) => d.image === image);
