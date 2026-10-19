@@ -2,7 +2,9 @@
 
 A marketing and catalogue site for Invent Fine Art, which makes sculptures, designer planters, GRC products, GRC grilles and FRP products in Mumbai.
 
-**Source of truth: `docs/SITE-V3-SPEC.md`.** If this file and the spec disagree, the spec wins. Change the spec first, then the code. The stack is in `docs/SITE-V3-STACK-AND-PLUGINS.md`, and the step-by-step prompts are in `docs/SITE-V3-BUILD-PROMPTS.md`.
+**Design direction (from 2026-10-19): `docs/THREE-DEMOS-DIRECTION.md` §4 "v2".** This demo follows Bonasila: brand-led, light and warm, a full-bleed photo hero, editorial collections, three menus. It must not share its hero, home order or navigation with v4 or Demo 3. The line drawings belong to Demo 3 only.
+
+**Source of truth for content and pages: `docs/SITE-V3-SPEC.md`.** If this file and the spec disagree, the spec wins (except for the design direction above). Change the spec first, then the code. The stack is in `docs/SITE-V3-STACK-AND-PLUGINS.md`, and the step-by-step prompts are in `docs/SITE-V3-BUILD-PROMPTS.md`.
 
 ## Stack (locked)
 - React 19, **JavaScript only** (`.jsx`/`.js`, no TypeScript).
@@ -17,29 +19,29 @@ The default Tailwind palette is switched off (`--color-*: initial`), so only the
 
 | Token | Hex | Use |
 |---|---|---|
-| `bg` | `#F7F4EE` | Page background (limestone) |
-| `surface` | `#EFEAE1` | Alternate section background (stone) |
-| `surface-2` | `#E4DDD0` | Cards, image placeholders (sand) |
-| `line` | `#D6CEC0` | Borders, dividers |
-| `ink` | `#1F1D1A` | Headings and body text (charcoal) |
-| `ink-muted` | `#5E5850` | Secondary text |
-| `accent` | `#8A6A3F` | Bronze: primary buttons, links |
-| `accent-hover` | `#6F542F` | Button hover |
-| `accent-light` | `#C9A97A` | Bronze for text and lines on dark bands (hero, sketchbook) |
-| `olive` | `#6B6A4B` | Second accent, used sparingly |
-| `dark` | `#1F1D1A` | Dark bands (stats, footer, CTA band) |
-| `cream` | `#F2EDE4` | Text on dark bands and on photos |
+| `bg` | `#FAF6EE` | Page background (warm cream) |
+| `surface` | `#F2ECE0` | Alternate section background |
+| `surface-2` | `#E8E0D0` | Footer, image placeholders |
+| `line` | `#DDD3C2` | Borders, dividers |
+| `ink` | `#23211C` | Headings and body text |
+| `ink-muted` | `#5F5A4F` | Secondary text |
+| `accent` | `#5E5F3E` | Olive, the one accent: buttons, links, accent words |
+| `accent-hover` | `#4A4B30` | Button hover |
+| `accent-light` | `#DEDBB8` | Pale olive for words on photos |
+| `olive` | `#6B6A4B` | Eyebrow labels |
+| `tint-sage` / `tint-sand` / `tint-clay` | `#E4E3CF` / `#ECE1CC` / `#EAD9C9` | Panels behind photos |
+| `dark` | `#23211C` | Scrims over photos only. **Never a band.** |
+| `cream` | `#F8F4EC` | Text on photos |
 | `whatsapp` | `#25D366` | The floating WhatsApp button only |
 | `error` | `#A23B2A` | Form error messages only |
 
-- **Type:** `font-display` = Cormorant Garamond 500/600 (italic for taglines). `font-sans` = Manrope.
-  - Category labels: `font-sans font-extrabold uppercase tracking-label`.
-  - Sizes: `text-h1` (44→72), `text-h2` (34→48), `text-h3` (24→28), body 16→17.
+- **Type:** headings are bold sans (Manrope 800, tight tracking). Cormorant Garamond is an **accent only**: one italic word or phrase in a headline (`<em>` inside h1–h3 or `.statement`), taglines, and small italic numbers.
+  - Sizes: `text-hero` (48→108), `text-statement` (36→80), `text-h1` (40→68), `text-h2` (32→48), `text-h3` (22→26), body 16→17.
 - **Layout:** container 1320 px, 24 px gutter (16 px on mobile). Section padding `py-section` (72→120).
 - **Radius:** images 4 px (`rounded-image`), buttons 2 px (`rounded-button`). The pill shape is only for the floating WhatsApp button.
 
 ## Rules
-1. Light theme. Use token colours only. No arbitrary hex in classes.
+1. Light and warm. No dark bands (hero, sections or footer); dark only as a scrim over a photo. Use token colours only, no arbitrary hex in classes.
 2. Motion follows spec §3.5 only, through `app/motion/` (`useReveal`, Lenis provider).
    - Reveals: fade up 24 px over 0.8 s with `power3.out`, stagger 0.08 s. Image clip reveal. Ken Burns of 1.06 or less.
    - Not allowed: bounce, spin, rotating text, cursor effects, intro or loading screens, gradient text.
@@ -61,6 +63,7 @@ The default Tailwind palette is switched off (`--color-*: initial`), so only the
 - `npm run lint`: oxlint
 - `npm run check`: lint + build
 - `npm run images`: rebuild images after adding photos to `media-src/` (`-- --force` rebuilds all)
+- `npm run og`: rebuild the 1200×630 link-preview JPGs in `public/og/` (served from `PREVIEW_ORIGIN` in `app/data/site.js`)
 - `npm run shots`: Playwright screenshots of key routes at 4 widths into `shots/` (needs `npm run preview` running)
 
 ## Folder map
@@ -70,8 +73,8 @@ app/
   routes.js           route list (every entry is prerendered)
   routes/             one file per page
   components/ui/      Button, Container, Section, SectionHeading, Img, Logo, Seo…
-  components/layout/  Header, MegaMenu, MobileMenu, Footer, FloatingWhatsApp
-  components/sections/ page sections (Hero, CategoryPanels, Collections…)
+  components/layout/  Header (three menus), NavPanel, MobileMenu, Footer, FloatingWhatsApp
+  components/sections/ page sections (Hero, CollectionStories, ProjectGrid…)
   enquiry/            EnquiryProvider + panel (the stub until Prompt 7)
   motion/             Lenis provider, reveal hook
   data/               hard-coded content (site, categories, designs, projects…)

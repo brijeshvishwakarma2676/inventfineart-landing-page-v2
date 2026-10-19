@@ -13,8 +13,8 @@ To find all of them: `grep -rn PROVISIONAL app`. Launch is blocked until that co
 | 3 | Certification | "ISO 9001 Certified" (ISO 9001:2008 was withdrawn in 2018; ask for the current certificate) | `app/data/site.js:13` |
 | 4 | Enquiry inbox | inventfineart.mum@gmail.com | `app/data/site.js:20` |
 | 5 | WhatsApp number | +91 93232 10327 | `app/data/site.js:21` |
-| 6 | Hero headline | "Art that gives your space an identity." | `app/data/site.js:31` |
-| 7 | Hero video | none; the hero shows the line drawings with a photo of the real piece | `app/data/site.js` (`hero.video`) |
+| 6 | Hero headline | "Reinventing spaces through innovations in art." (the old site's own tagline); statement under it: "Art that gives your space a distinctive identity." (the brief's Sculptures tagline) | `app/data/site.js` (`hero`), `app/routes/home.jsx` |
+| 7 | Hero photo / video | the elephant planter (planters/3, a phone photo); a proper lifestyle shoot (≥ 2,400 px) would serve this direction best | `app/data/site.js` (`hero.photo`) |
 | 8 | Catalogue PDF | none (`/catalogue` is not built) | `app/data/site.js:51` |
 | 9 | Sizes | Planters S/M/L/Custom; the rest "Made to your size and drawing" | `app/data/categories.js:17, 37, 59, 79, 100` |
 | 10 | Finishes | 5 names; swatches are flat token colours | `app/data/categories.js:110` |
@@ -44,3 +44,6 @@ To find all of them: `grep -rn PROVISIONAL app`. Launch is blocked until that co
 - Excluded from the catalogue:
   - `sculptures/22`: a concept drawing, not a finished piece.
   - `other_products/10`: an exhibition poster.
+
+## Link previews
+- Previews (og:image, og:url) load from `PREVIEW_ORIGIN` = https://inventfineart-landing-page-v2.vercel.app because inventfineart.com still serves the old site. Switch to the domain when it moves (`app/data/site.js`).

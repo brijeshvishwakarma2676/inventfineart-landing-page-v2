@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { gsap, useGSAP } from '../../motion/gsap';
 import { site } from '../../data/site';
 
-/** Dark band of real (client-confirmed) figures that count up once on scroll (spec §3.4). */
+/** Light band of the (provisional) figures, counting up once on scroll. */
 export function StatsBand({ className = '' }) {
   const ref = useRef(null);
   useGSAP(
@@ -25,12 +25,12 @@ export function StatsBand({ className = '' }) {
   );
 
   return (
-    <div ref={ref} className={`bg-dark text-cream ${className}`}>
-      <dl className="container-site grid grid-cols-1 divide-y divide-cream/12 py-12 sm:grid-cols-3 sm:divide-x sm:divide-y-0 md:py-16">
+    <div ref={ref} className={`bg-tint-sand text-ink ${className}`}>
+      <dl className="container-site grid grid-cols-1 divide-y divide-ink/10 py-12 sm:grid-cols-3 sm:divide-x sm:divide-y-0 md:py-16">
         {site.stats.map((s) => (
           <div key={s.label} className="flex flex-col-reverse items-center gap-2 py-6 text-center sm:py-0">
-            <dt className="text-micro font-bold uppercase tracking-eyebrow text-cream/65">{s.label}</dt>
-            <dd className="font-display text-[clamp(3rem,2rem+3vw,4.5rem)] leading-none">
+            <dt className="text-micro font-bold uppercase tracking-eyebrow text-olive">{s.label}</dt>
+            <dd className="text-[clamp(3rem,2rem+3vw,4.5rem)] font-extrabold leading-none tracking-tight">
               <span data-count={s.value}>{s.value}</span>
               {s.suffix}
             </dd>

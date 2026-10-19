@@ -19,7 +19,7 @@ export default function About() {
       <Seo
         title="About Invent Fine Art | Sculptors, Designers & Makers, Mumbai"
         description="A team of artisans and product designers making sculptures, planters, GRC and FRP products, from concept to installation."
-        image="gallery/sculptures/2"
+        og="about"
         jsonLd={breadcrumbs([{ name: 'About', path: '/about' }])}
       />
       <PageHeader
@@ -77,7 +77,7 @@ export default function About() {
         </Container>
       </Section>
 
-      <Section aria-labelledby="process-title">
+      <Section id="how-we-work" aria-labelledby="process-title" className="scroll-mt-16">
         <Container>
           <SectionHeading className="mb-12 lg:mb-16" eyebrow="How we work" title={<span id="process-title">From concept <em>to installation.</em></span>} />
           <Process />

@@ -1,4 +1,4 @@
-import { SITE_URL, site } from './site';
+import { PREVIEW_ORIGIN, SITE_URL, site } from './site';
 import { categories } from './categories';
 
 export const organization = {
@@ -11,7 +11,7 @@ export const organization = {
   email: site.email,
   telephone: site.phones.map((p) => p.tel),
   foundingDate: String(site.foundedYear),
-  image: `${SITE_URL}/img/gallery/grc_products/1-1600.webp`,
+  image: `${PREVIEW_ORIGIN}/og/home.jpg`,
   address: [
     { '@type': 'PostalAddress', addressLocality: 'Kandivali East, Mumbai', addressRegion: 'Maharashtra', addressCountry: 'IN' },
     { '@type': 'PostalAddress', addressLocality: 'Vasai–Virar', addressRegion: 'Maharashtra', addressCountry: 'IN' },

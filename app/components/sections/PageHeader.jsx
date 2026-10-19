@@ -44,7 +44,7 @@ export function PageHeader({ title, tagline, eyebrow, image, position, crumbs = 
   }
 
   return (
-    <section className="relative isolate flex h-[72svh] min-h-[520px] items-end overflow-hidden bg-dark text-cream">
+    <section className="relative isolate flex h-[72svh] min-h-[520px] items-end overflow-hidden bg-surface-2 text-cream">
       <div className="absolute inset-0 -z-10" data-reveal="clip">
         <Img id={image} alt="" priority sizes="100vw" className="size-full object-cover" style={{ objectPosition: position }} />
       </div>

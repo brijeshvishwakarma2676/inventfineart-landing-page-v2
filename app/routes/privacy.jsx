@@ -5,7 +5,7 @@ import { site } from '../data/site';
 
 // Describes only what this site actually does (keep in sync if analytics or new services are added).
 export default function Privacy() {
-  const h2 = 'mt-10 font-display text-h3 text-ink';
+  const h2 = 'mt-10 text-h3 font-extrabold text-ink';
   return (
     <>
       <Seo title="Privacy Policy | Invent Fine Art" description="How Invent Fine Art handles the information you share through this website." />

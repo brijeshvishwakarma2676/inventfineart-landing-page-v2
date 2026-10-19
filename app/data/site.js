@@ -2,6 +2,11 @@
 // Every value marked PROVISIONAL comes from SITE-V3-SPEC.md §7 and must be confirmed by the client.
 
 export const SITE_URL = 'https://www.inventfineart.com';
+// Where this build is actually served (set in vite.config.js from Vercel's environment, or VITE_PREVIEW_ORIGIN).
+// Link previews (og:image, og:url) must load from here: inventfineart.com still serves the old site.
+// PROVISIONAL – switch to SITE_URL when the domain moves.
+// eslint-disable-next-line no-undef
+export const PREVIEW_ORIGIN = __PREVIEW_ORIGIN__;
 
 const foundedYear = 2008; // PROVISIONAL – confirm with client (old Home said 2008, old About said 2009)
 
@@ -28,12 +33,21 @@ export const site = {
   },
 
   hero: {
+    // Headline: the old site's own tagline ("Reinventing spaces through Innovations in Art").
     // PROVISIONAL – confirm with client (headline approval)
     eyebrow: 'Sculptures · Planters · GRC · FRP',
-    title: 'Art that gives your space an',
-    titleItalic: 'identity.',
+    title: 'Reinventing spaces through innovations in',
+    titleItalic: 'art.',
     sub: 'Sculptures, designer planters, GRC and FRP products, designed and made in our own workshop.',
-    // The hero is the sketch hero (Hero.jsx): line drawings + the real piece. A hero video could replace it later.
+    // Full-bleed lifestyle photo (≥ 2,400 px wide; this one is 3,264 px). A proper lifestyle shoot would serve better.
+    photo: {
+      image: 'gallery/planters/3',
+      alt: 'An elephant planter holding a fan of leaves, on a stone plinth beside a garden',
+      position: '50% 62%',
+      category: 'designer-planters',
+      code: 'IFA-PL-003',
+      caption: 'Elephant planter',
+    },
     video: null, // PROVISIONAL – confirm with client (no hero video yet)
   },
 
@@ -47,12 +61,29 @@ export const site = {
   catalogueUrl: null, // PROVISIONAL – confirm with client (no catalogue PDF yet)
 };
 
-export const nav = [
-  { label: 'Products', to: '/products', mega: true },
-  { label: 'Projects', to: '/projects' },
-  { label: 'About', to: '/about' },
-  { label: 'Clients', to: '/clients' },
-  { label: 'Contact', to: '/contact' },
+// Three menus, Bonasila-style (THREE-DEMOS-DIRECTION.md §4 v2.7). Collections lists the five product lines;
+// the others are short link lists. `action: 'enquiry'` opens the quote panel instead of a page.
+export const menus = [
+  { id: 'collections', label: 'Collections' },
+  {
+    id: 'business',
+    label: 'Business',
+    items: [
+      { label: 'Projects', to: '/projects', text: 'Murals, water features, pergolas and installations' },
+      { label: 'Clients', to: '/clients', text: 'Corporate and architectural clients' },
+      { label: 'All products', to: '/products', text: 'The five product lines side by side' },
+      { label: 'Get a quote', action: 'enquiry', text: 'Share your concept, size and location' },
+    ],
+  },
+  {
+    id: 'about',
+    label: 'About',
+    items: [
+      { label: 'About us', to: '/about', text: 'A community of artists and makers' },
+      { label: 'How we work', to: '/about#how-we-work', text: 'From conceptualisation to the complete execution' },
+      { label: 'Contact', to: '/contact', text: 'Office, workshop, phone and email' },
+    ],
+  },
 ];
 
 export function whatsappLink(message) {

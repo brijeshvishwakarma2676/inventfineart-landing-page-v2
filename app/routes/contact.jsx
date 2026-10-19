@@ -61,7 +61,7 @@ export default function Contact() {
                 Call us
               </h2>
               {site.phones.map((p) => (
-                <a key={p.tel} href={`tel:${p.tel}`} className="font-display text-h3 hover:text-accent">{p.label}</a>
+                <a key={p.tel} href={`tel:${p.tel}`} className="text-h3 font-extrabold hover:text-accent">{p.label}</a>
               ))}
             </div>
             <div className="flex flex-col items-start gap-3 border-t border-line pt-8">

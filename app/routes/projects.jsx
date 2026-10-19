@@ -24,7 +24,7 @@ export default function Projects() {
       <Seo
         title="Projects: Murals, Water Features & Installations | Invent Fine Art"
         description="Wall murals and relief art, water features and rockery, pergolas, gazebos and installations made by Invent Fine Art."
-        image="gallery/wall_murals/9"
+        og="projects"
         jsonLd={breadcrumbs([{ name: 'Projects', path: '/projects' }])}
       />
       <PageHeader

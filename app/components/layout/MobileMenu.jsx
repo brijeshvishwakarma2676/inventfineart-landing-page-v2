@@ -5,7 +5,7 @@ import { Logo } from '../ui/Logo';
 import { useFocusTrap } from '../ui/useFocusTrap';
 import { useScrollLock } from '../ui/useScrollLock';
 import { categories } from '../../data/categories';
-import { nav, site } from '../../data/site';
+import { menus, site } from '../../data/site';
 import { useEnquiry } from '../../enquiry/EnquiryContext';
 
 /** Full-screen menu below 1024px. Get a Quote and Call stay pinned at the bottom. */
@@ -37,34 +37,44 @@ export function MobileMenu({ open, onClose }) {
         </button>
       </div>
 
-      <nav aria-label="Mobile" className="container-site flex-1 overflow-y-auto py-8">
-        <p className="mb-4 font-sans text-micro font-bold uppercase tracking-eyebrow text-olive">Products</p>
-        <ul className="mb-8 flex flex-col">
-          {categories.map((c) => (
-            <li key={c.slug}>
-              <Link
-                to={`/${c.slug}`}
-                onClick={onClose}
-                className="flex items-baseline justify-between border-b border-line py-3.5 text-small font-extrabold uppercase tracking-label"
-              >
-                {c.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <ul className="flex flex-col gap-1">
-          {nav.map((item) => (
-            <li key={item.to}>
-              <NavLink
-                to={item.to}
-                onClick={onClose}
-                className={({ isActive }) => `font-display text-h2 leading-tight ${isActive ? 'italic text-accent' : ''}`}
-              >
-                {item.mega ? 'All products' : item.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+      <nav aria-label="Mobile" className="container-site flex flex-1 flex-col gap-9 overflow-y-auto py-8">
+        {menus.map((m) => (
+          <div key={m.id}>
+            <p className="mb-2 text-micro font-bold uppercase tracking-eyebrow text-olive">{m.label}</p>
+            <ul className="flex flex-col">
+              {(m.id === 'collections'
+                ? categories.map((c) => ({ label: c.name, to: `/${c.slug}`, code: c.code }))
+                : m.items
+              ).map((item) => (
+                <li key={item.label}>
+                  {item.action === 'enquiry' ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose();
+                        openEnquiry();
+                      }}
+                      className="flex w-full items-baseline gap-3 border-b border-line py-3 text-left text-h3 font-extrabold"
+                    >
+                      {item.label}
+                    </button>
+                  ) : (
+                    <NavLink
+                      to={item.to}
+                      onClick={onClose}
+                      className={({ isActive }) =>
+                        `flex items-baseline gap-3 border-b border-line py-3 text-h3 font-extrabold ${isActive ? 'text-accent' : ''}`
+                      }
+                    >
+                      {item.code && <span className="w-9 text-micro font-bold tracking-label text-olive">{item.code}</span>}
+                      {item.label}
+                    </NavLink>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </nav>
 
       <div className="container-site grid shrink-0 grid-cols-2 gap-3 border-t border-line py-4">

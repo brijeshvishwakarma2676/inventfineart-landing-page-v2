@@ -42,7 +42,7 @@ export default function Category() {
       <Seo
         title={cat.seo.title}
         description={cat.seo.description}
-        image={cat.banner.image}
+        og={cat.slug}
         jsonLd={[
           breadcrumbs([
             { name: 'Products', path: '/products' },
